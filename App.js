@@ -1,10 +1,26 @@
-import React from 'react';
-import {SafeAreaView, StyleSheet, Button} from 'react-native';
+import React, {useState, useEffect} from 'react';
+import {
+  SafeAreaView,
+  StyleSheet,
+  Button,
+  NativeModules,
+  NativeEventEmitter,
+  Text,
+} from 'react-native';
 
 function App() {
+  const [token, setToken] = useState('Sem Token');
+  useEffect(() => {
+    const eventEmitter = new NativeEventEmitter(NativeModules.Wall);
+    eventEmitter.addListener('TOKEN', event => {
+      setToken(event);
+    });
+  }, []);
+  const callNativeFunction = () => NativeModules?.Wall?.startSDK();
   return (
     <SafeAreaView style={styles.container}>
-      <Button title="Iniciar Fluxo" />
+      <Text>{token}</Text>
+      <Button title="Iniciar Fluxo" onPress={callNativeFunction} />
     </SafeAreaView>
   );
 }
