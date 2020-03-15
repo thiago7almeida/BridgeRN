@@ -9,6 +9,7 @@ import com.facebook.react.ReactPackage;
 import com.facebook.soloader.SoLoader;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
+import co.idwall.toolkit.IDwallToolkit;
 
 public class MainApplication extends Application implements ReactApplication {
 
@@ -42,6 +43,7 @@ public class MainApplication extends Application implements ReactApplication {
   @Override
   public void onCreate() {
     super.onCreate();
+    IDwallToolkit.getInstance().init(this, "auth_key");
     SoLoader.init(this, /* native exopackage */ false);
     initializeFlipper(this); // Remove this line if you don't want Flipper enabled
   }
